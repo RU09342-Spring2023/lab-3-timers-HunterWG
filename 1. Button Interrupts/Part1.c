@@ -2,7 +2,7 @@
  * Part1.c
  *
  *  Created on: Feb 11, 2023
- *      Author: Russell Trafford
+ *      Author: Hunter Geitz
  *
  *  This code is a template which will change the color of the LED being blinked using the interrupt routine.
  */
@@ -80,16 +80,21 @@ __interrupt void Port_2(void)
 {
     P2IFG &= ~BIT3;                         // Clear P1.3 IFG
 
-    if ( )       // @TODO Fill in this argument within the If statement to check if the interrupt was triggered off a rising edge.
+    if (~P2IN & BIT3)       // @TODO Fill in this argument within the If statement to check if the interrupt was triggered off a rising edge.
     {
         LED_Color = 0;
+        P6OUT &= ~BIT6;
+        P2IES &= ~BIT3;
+        // SetTheEdgeSensitivityToFalling
         // @TODO Add code to change which edge the interrupt should be looking for next
     }
 
-    else if ( ) // @TODO Fill in this argument within the If statement to check if the interrupt was triggered off a falling edge.
+    else if (P2IN & BIT3) // @TODO Fill in this argument within the If statement to check if the interrupt was triggered off a falling edge.
     {
         LED_Color = 1;
+        P1OUT &= ~BIT0;
+        P2IES |= BIT3;
+        // SetTheEdgeSensitivityToRising
         // @TODO Add code to change which edge the interrupt should be looking for next
     }
 }
-
